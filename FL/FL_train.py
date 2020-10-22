@@ -6,13 +6,13 @@ import random
 random.seed(0)
 
 
-def train_model(global_model, criterion, num_rounds, local_epochs, num_users, batch_size, learning_rate):
+def train_model(global_model, criterion, num_rounds, local_epochs, total_num_users, num_users, batch_size, learning_rate):
     train_loss, train_acc = [], []
     val_loss, val_acc = [], []
 
     total_num_users = 500
 
-    trainloader_list, valloader = get_cifar_iid(batch_size=batch_size)
+    trainloader_list, valloader = get_cifar_iid(batch_size=batch_size, total_num_clients=total_num_users)
 
     # random_list = range(num_users)
 
@@ -48,6 +48,18 @@ def train_model(global_model, criterion, num_rounds, local_epochs, num_users, ba
 
     return train_loss, train_acc, val_loss, val_acc
 
+import matplotlib.pyplot as plt
+
+import numpy as np
+
+# functions to show an image
+
+
+def imshow(img,i):
+    img = img / 2 + 0.5     # unnormalize
+    npimg = img.cpu().numpy()
+    plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    plt.savefig(str(i)+".png")
 
 def model_evaluation(model, dataloader, criterion):
     with torch.no_grad():
@@ -56,9 +68,14 @@ def model_evaluation(model, dataloader, criterion):
         running_loss = 0.0
         running_corrects = 0
         running_total = 0
+        classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
         for (i, data) in enumerate(dataloader):
             inputs, labels = data[0].to(device), data[1].to(device)
+            #for c,img in enumerate(inputs):
+            #  imshow(img,c)
+            #  print(classes[c])
+            #print(ciao)
 
             outputs = model(inputs.double())
             loss = criterion(outputs, labels)

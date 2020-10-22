@@ -6,7 +6,7 @@ import random
 random.seed(0)
 
 
-def get_cifar_iid(batch_size):
+def get_cifar_iid(batch_size, total_num_clients):
     transform = transforms.Compose(
         [transforms.ToTensor(),
          transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -19,13 +19,13 @@ def get_cifar_iid(batch_size):
 
     classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-    data_per_client = 100
+
     total_data = len(trainset)
     random_list = random.sample(range(total_data), total_data)
-    num_clients = int(total_data / data_per_client)
+    data_per_client = int(total_data / total_num_clients)
     datasets = []
-    for i in range(num_clients):
-        indexes = random_list[i:i + 100]
+    for i in range(total_num_clients):
+        indexes = random_list[i:i + data_per_client]
         datasets.append(itemgetter(*indexes)(trainset))
 
     trainloader_list = []
