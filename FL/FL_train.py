@@ -58,7 +58,7 @@ def model_evaluation(model, dataloader, criterion):
         running_total = 0
 
         for (i, data) in enumerate(dataloader):
-            inputs, labels = data['input'].to(device), data['label'].to(device)
+            inputs, labels = data[0].to(device), data[1].to(device)
 
             outputs = model(inputs.double())
             loss = criterion(outputs, labels)
