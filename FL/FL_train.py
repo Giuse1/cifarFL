@@ -12,7 +12,7 @@ def train_model(global_model, criterion, num_rounds, local_epochs, num_users, ba
 
     total_num_users = 500
 
-    trainloader_list, valloader = get_cifar(batch_size=batch_size)
+    trainloader_list, valloader = get_cifar_iid(batch_size=batch_size)
 
     # random_list = range(num_users)
 
