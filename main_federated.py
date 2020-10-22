@@ -15,7 +15,7 @@ num_rounds = 50
 local_epochs = 1
 num_users = 150
 total_num_users = 500
-batch_size = 8
+batch_size = 16
 learning_rate = 0.01
 
 

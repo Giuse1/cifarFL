@@ -38,6 +38,9 @@ def train_model(global_model, criterion, num_rounds, local_epochs, total_num_use
                 global_weights = average_weights(local_weights, samples_per_client)
                 global_model.load_state_dict(global_weights)
 
+            if round%10==0:
+                print(f"round: {round}")
+                torch.save(global_model.state_dict(), "/content/drive/My\ Drive/cifar.pth")
             else:
                 val_loss_r, val_accuracy_r = model_evaluation(model=global_model.double(),
                                                               dataloader=valloader, criterion=criterion)
@@ -137,6 +140,10 @@ def train_model_aggregated(global_model, criterion, num_rounds, local_epochs, nu
 
                 global_weights = average_weights(local_weights, samples_per_client)
                 global_model.load_state_dict(global_weights)
+
+            if round % 10 == 0:
+                print(f"round: {round}")
+                torch.save(global_model.state_dict(), "/content/drive/My\ Drive/cifar.pth")
 
             else:
                 val_loss_r, val_accuracy_r = model_evaluation(model=global_model.double(),
