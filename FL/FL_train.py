@@ -10,8 +10,6 @@ def train_model(global_model, criterion, num_rounds, local_epochs, total_num_use
     train_loss, train_acc = [], []
     val_loss, val_acc = [], []
 
-    total_num_users = 500
-
     trainloader_list, valloader = get_cifar_iid(batch_size=batch_size, total_num_clients=total_num_users)
 
     # random_list = range(num_users)
