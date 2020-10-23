@@ -25,7 +25,8 @@ def get_cifar_iid(batch_size, total_num_clients):
     data_per_client = int(total_data / total_num_clients)
     datasets = []
     for i in range(total_num_clients):
-        indexes = random_list[i:i + data_per_client]
+
+        indexes = random_list[i*data_per_client: (i+1)*data_per_client]
         datasets.append(list(itemgetter(*indexes)(trainset)))
 
     trainloader_list = []

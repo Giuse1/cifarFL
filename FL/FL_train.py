@@ -50,18 +50,6 @@ def train_model(global_model, criterion, num_rounds, local_epochs, total_num_use
 
     return train_loss, train_acc, val_loss, val_acc
 
-import matplotlib.pyplot as plt
-
-import numpy as np
-
-# functions to show an image
-
-
-def imshow(img,i):
-    img = img / 2 + 0.5     # unnormalize
-    npimg = img.cpu().numpy()
-    plt.imshow(np.transpose(npimg, (1, 2, 0)))
-    plt.savefig(str(i)+".png")
 
 def model_evaluation(model, dataloader, criterion):
     with torch.no_grad():
@@ -142,7 +130,7 @@ def train_model_aggregated(global_model, criterion, num_rounds, local_epochs,tot
 
             else:
                 val_loss_r, val_accuracy_r = model_evaluation(model=global_model.double(),
-                                                              dataloader_list=valloader, criterion=criterion)
+                                                              dataloader=valloader, criterion=criterion)
 
                 val_loss.append(val_loss_r)
                 val_acc.append(val_accuracy_r)

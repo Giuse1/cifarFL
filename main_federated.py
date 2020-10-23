@@ -11,13 +11,12 @@ print("Torchvision Version: ",torchvision.__version__)
 torch.manual_seed(1)
 
 
-num_rounds = 50
+num_rounds = 150
 local_epochs = 1
-num_users = 1
-total_num_users = 1
+num_users = 100
+total_num_users = 500
 batch_size = 16
 learning_rate = 0.01
-
 
 print(f"NUM_USERS: {num_users}")
 print(f"total_num_users: {total_num_users}")
