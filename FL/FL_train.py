@@ -103,8 +103,7 @@ def train_model_aggregated(global_model, criterion, num_rounds, local_epochs, nu
     total_num_users = 500
 
 
-    trainloader_list = getDataloaderList(path='data/', transform=transform, batch_size=batch_size, shuffle=True)
-    valloader_list = getDataloaderList(path='data_test/', transform=transform, batch_size=batch_size, shuffle=True)
+    trainloader_list, valloader = get_cifar_iid(batch_size=batch_size, total_num_clients=total_num_users)
 
     num_groups = num_users / users_per_group
     for round in range(num_rounds):
@@ -146,7 +145,7 @@ def train_model_aggregated(global_model, criterion, num_rounds, local_epochs, nu
 
             else:
                 val_loss_r, val_accuracy_r = model_evaluation(model=global_model.double(),
-                                                              dataloader_list=valloader_list, criterion=criterion)
+                                                              dataloader_list=valloader, criterion=criterion)
 
                 val_loss.append(val_loss_r)
                 val_acc.append(val_accuracy_r)

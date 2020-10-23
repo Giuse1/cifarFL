@@ -4,7 +4,7 @@ from __future__ import division
 import torch
 import torch.nn as nn
 import torchvision
-from model import shufflenet
+from model import shufflenet, CNNMnist
 from FL.FL_train import train_model_aggregated, train_model
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
@@ -29,7 +29,7 @@ print(f"learning_rate: {learning_rate}")
 num_classes = 10
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-model_ft = shufflenet()
+model_ft = CNNMnist(3,10)
 model_ft = model_ft.to(device)
 
 

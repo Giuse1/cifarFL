@@ -1,5 +1,16 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import torch
+
+dict = torch.load("../cifar.pth", map_location=torch.device('cpu'))
+n = 0
+for d in dict.items():
+
+    to_add = 1
+    for i in range(len(d[1].shape)):
+        to_add *= d[1].shape[i]
+    n += to_add
+print(n)
 
 
 def read_file(path):
