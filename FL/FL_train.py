@@ -95,13 +95,10 @@ def model_evaluation(model, dataloader, criterion):
         return epoch_loss, epoch_acc
 
 
-def train_model_aggregated(global_model, criterion, num_rounds, local_epochs, num_users, users_per_group, batch_size,
+def train_model_aggregated(global_model, criterion, num_rounds, local_epochs,total_num_users, num_users, users_per_group, batch_size,
                            learning_rate):
     train_loss, train_acc = [], []
     val_loss, val_acc = [], []
-
-    total_num_users = 500
-
 
     trainloader_list, valloader = get_cifar_iid(batch_size=batch_size, total_num_clients=total_num_users)
 
