@@ -1,7 +1,9 @@
 from FL.FL_user import LocalUpdate
 import copy
 import torch
-from FL.torch_dataset import get_cifar_iid
+from FL.torch_dataset import get_cifar_iid, cifar_one_class_per_user
+import numpy as np
+
 import random
 random.seed(0)
 
@@ -90,7 +92,7 @@ def train_model_aggregated(global_model, criterion, num_rounds, local_epochs,tot
 
     trainloader_list, valloader = get_cifar_iid(batch_size=batch_size, total_num_clients=total_num_users)
 
-    num_groups = num_users / users_per_group
+    num_groups = int(num_users / users_per_group)
     for round in range(num_rounds):
         print('-' * 10)
         print('Epoch {}/{}'.format(round, num_rounds - 1))

@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+import random
 
 # dict = torch.load("../cifar.pth", map_location=torch.device('cpu'))
 # n = 0
@@ -15,7 +16,26 @@ import torch
 #                (b'ccc', 3, 12.6)],
 #               dtype=[('foo', 'S3'), ('bar', 'i4'), ('baz', 'f8')])
 # print(type(a[0]))
-# print(n)
+# # print(n)
+###############################################
+# num_classes = 10
+# table = np.zeros(shape=(10, 10), dtype=int)
+#
+# for i in range(num_classes):
+#     table[i, :] = np.array(random.sample(range(i * 50, (i + 1) * 50), 10))
+#
+# # random_list = random.sample(range(total_num_users), num_users)
+#
+# for i in range(num_groups):
+#     random_list = random.sample(list(table[:, i]), 10)
+#     for idx in random_list:
+#         print(idx)
+#
+# lists = np.zeros(shape=(10,1), dtype=int)
+# for i in range(num_classes):
+#     lists[i] = np.array(random.sample(range(i*50, (i+1)*50), 1))
+#
+# # print(i)
 
 
 def read_file(path):
@@ -46,6 +66,9 @@ _, _, _, val_acc6 = read_file("results/standard_nonIID_lr0,001_10u.txt")
 _, _, _, val_acc1 = read_file("results/hybrid_nonIID_group2_le0,001.txt")
 _, _, _, val_acc2 = read_file("results/hybrid_nonIID_group5_lr0,001.txt")
 _, _, _, val_acc3 = read_file("results/hybrid_nonIID_group10_lr0,001.txt")
+_, _, _, val_acc7 = read_file("results/hybrid_nonIID_group10_lr0,001_complementary.txt")
+_, _, _, val_acc8 = read_file("results/hybrid_nonIID_group5_lr0,001_complementary.txt")
+
 
 
 plt.figure()
@@ -53,10 +76,12 @@ plt.plot(val_acc0, label='SFL - 1 local epoch, 100 users')
 plt.plot(val_acc4, label='SFL - 1 local epoch, 50 users')
 plt.plot(val_acc5, label='SFL - 1 local epoch, 20 users')
 plt.plot(val_acc6, label='SFL - 1 local epoch, 10 users')
-
 plt.plot(val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
 plt.plot(val_acc2, label='HFL - 1 local epoch, 100 users in groups of 5')
 plt.plot(val_acc3, label='HFL - 1 local epoch, 100 users in groups of 10')
+plt.plot(val_acc8, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
+
+plt.plot(val_acc7, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
 
 
 plt.legend()
@@ -80,6 +105,9 @@ plt.plot(np.arange(20,20*1501,20)[:len(val_acc6)],val_acc6, label='SFL - 1 local
 plt.plot(np.arange(150,150*151,150), val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
 plt.plot(np.arange(120,120*151,120), val_acc2, label='HFL - 1 local epoch, 100 users in groups of 5')
 plt.plot(np.arange(110,110*151,110), val_acc3, label='HFL - 1 local epoch, 100 users in groups of 10')
+plt.plot(np.arange(120,120*151,120), val_acc8, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
+
+plt.plot(np.arange(110,110*151,110), val_acc7, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
 
 plt.legend()
 plt.grid()
@@ -102,6 +130,8 @@ plt.plot(np.arange(0,len(val_acc6)), val_acc6, label='SFL - 1 local epoch, 10 us
 plt.plot(np.arange(0,150*2,2), val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
 plt.plot(np.arange(0,150*5,5), val_acc2, label='HFL - 1 local epoch, 100 users in groups of 5')
 plt.plot(np.arange(0,150*10,10), val_acc3, label='HFL - 1 local epoch, 100 users in groups of 10')
+plt.plot(np.arange(0,150*5,5), val_acc8, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
+plt.plot(np.arange(0,150*10,10), val_acc7, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
 
 
 plt.legend()
