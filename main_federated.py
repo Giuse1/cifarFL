@@ -18,6 +18,7 @@ users_per_group = 10
 total_num_users = 500
 batch_size = 16
 learning_rate = 0.001
+shuffle=False
 
 print(f"NUM_USERS: {num_users}")
 print(f"users_per_group: {users_per_group}")
@@ -26,6 +27,8 @@ print(f"num_rounds: {num_rounds}")
 print(f"local_epochs: {local_epochs}")
 print(f"batch_size: {batch_size}")
 print(f"learning_rate: {learning_rate}")
+print(f"shuffle: {shuffle}")
+
 
 num_classes = 10
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -36,4 +39,4 @@ model_ft = model_ft.to(device)
 criterion = nn.CrossEntropyLoss()
 
 train_loss, train_acc, val_loss, val_acc = train_model_aggregated(model_ft, criterion, num_rounds=num_rounds, local_epochs=local_epochs, total_num_users=total_num_users, num_users=num_users,
-                                                       users_per_group=users_per_group, batch_size=batch_size, learning_rate=learning_rate)
+                                                       users_per_group=users_per_group, batch_size=batch_size, learning_rate=learning_rate, shuffle=shuffle)

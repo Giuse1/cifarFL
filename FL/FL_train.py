@@ -86,11 +86,11 @@ def model_evaluation(model, dataloader, criterion):
 
 
 def train_model_aggregated(global_model, criterion, num_rounds, local_epochs,total_num_users, num_users, users_per_group, batch_size,
-                           learning_rate):
+                           learning_rate, shuffle):
     train_loss, train_acc = [], []
     val_loss, val_acc = [], []
 
-    trainloader_list, valloader = get_cifar_iid(batch_size=batch_size, total_num_clients=total_num_users)
+    trainloader_list, valloader = cifar_one_class_per_user(batch_size=batch_size, total_num_clients=total_num_users, shuffle=shuffle)
 
     num_groups = int(num_users / users_per_group)
     for round in range(num_rounds):

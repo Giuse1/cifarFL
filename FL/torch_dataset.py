@@ -39,7 +39,7 @@ def get_cifar_iid(batch_size, total_num_clients):
     return trainloader_list, testloader
 
 
-def cifar_one_class_per_user(batch_size, total_num_clients):
+def cifar_one_class_per_user(batch_size, total_num_clients, shuffle):
 
     transform = transforms.Compose(
         [transforms.ToTensor(),

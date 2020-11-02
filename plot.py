@@ -68,6 +68,8 @@ _, _, _, val_acc2 = read_file("results/hybrid_nonIID_group5_lr0,001.txt")
 _, _, _, val_acc3 = read_file("results/hybrid_nonIID_group10_lr0,001.txt")
 _, _, _, val_acc7 = read_file("results/hybrid_nonIID_group10_lr0,001_complementary.txt")
 _, _, _, val_acc8 = read_file("results/hybrid_nonIID_group5_lr0,001_complementary.txt")
+_, _, _, val_acc9 = read_file("results/hybrid_nonIID_group20_lr0,001.txt")
+_, _, _, val_acc10 = read_file("results/hybrid_nonIID_group20_lr0,001_complementary.txt")
 
 
 
@@ -79,16 +81,18 @@ plt.plot(val_acc6, label='SFL - 1 local epoch, 10 users')
 plt.plot(val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
 plt.plot(val_acc2, label='HFL - 1 local epoch, 100 users in groups of 5')
 plt.plot(val_acc3, label='HFL - 1 local epoch, 100 users in groups of 10')
+plt.plot(val_acc9, label='HFL - 1 local epoch, 100 users in groups of 20')
 plt.plot(val_acc8, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
-
 plt.plot(val_acc7, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
+plt.plot(val_acc10, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
 
 
 plt.legend()
 plt.grid()
-#plt.xticks(range(0, 101, 5))
+plt.xticks(range(0, 151, 10))
+plt.xlim(0,151)
 
-plt.yticks(np.arange(0, 1, 0.1))
+plt.yticks(np.arange(0, 1.15, 0.1))
 plt.xlabel("Number of rounds")
 plt.ylabel("Accuracy")
 plt.title("Accuracy w.r.t. to number of rounds (l.r. 0.001)")
@@ -105,15 +109,17 @@ plt.plot(np.arange(20,20*1501,20)[:len(val_acc6)],val_acc6, label='SFL - 1 local
 plt.plot(np.arange(150,150*151,150), val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
 plt.plot(np.arange(120,120*151,120), val_acc2, label='HFL - 1 local epoch, 100 users in groups of 5')
 plt.plot(np.arange(110,110*151,110), val_acc3, label='HFL - 1 local epoch, 100 users in groups of 10')
-plt.plot(np.arange(120,120*151,120), val_acc8, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
+plt.plot(np.arange(105,105*151,105), val_acc9, label='HFL - 1 local epoch, 100 users in groups of 20')
 
+plt.plot(np.arange(120,120*151,120), val_acc8, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
 plt.plot(np.arange(110,110*151,110), val_acc7, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
+plt.plot(np.arange(105,105*151,105), val_acc10, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
 
 plt.legend()
 plt.grid()
 #plt.xticks(range(0, 101, 5))
 
-plt.yticks(np.arange(0, 1, 0.1))
+plt.yticks(np.arange(0, 1.15, 0.1))
 plt.xlabel("Number of transmissions")
 plt.ylabel("Accuracy")
 plt.title("Accuracy w.r.t. to number of transmissions (l.r. 0.001)")
@@ -125,20 +131,23 @@ plt.figure()
 plt.plot(val_acc0, label='SFL - 1 local epoch, 100 users')
 plt.plot(val_acc4, label='SFL - 1 local epoch, 50 users')
 plt.plot(val_acc5, label='SFL - 1 local epoch, 20 users')
-plt.plot(np.arange(0,len(val_acc6)), val_acc6, label='SFL - 1 local epoch, 10 users')
+plt.plot(val_acc6, label='SFL - 1 local epoch, 10 users')
 
 plt.plot(np.arange(0,150*2,2), val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
 plt.plot(np.arange(0,150*5,5), val_acc2, label='HFL - 1 local epoch, 100 users in groups of 5')
 plt.plot(np.arange(0,150*10,10), val_acc3, label='HFL - 1 local epoch, 100 users in groups of 10')
+plt.plot(np.arange(0,150*20,20), val_acc9, label='HFL - 1 local epoch, 100 users in groups of 20')
+
 plt.plot(np.arange(0,150*5,5), val_acc8, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
 plt.plot(np.arange(0,150*10,10), val_acc7, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
+plt.plot(np.arange(0,150*20,20), val_acc10, label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
 
 
 plt.legend()
 plt.grid()
 #plt.xticks(range(0, 101, 5))
 
-plt.yticks(np.arange(0, 1, 0.1))
+plt.yticks(np.arange(0, 1.15, 0.1))
 plt.xlabel("Number of time slots")
 plt.ylabel("Accuracy")
 plt.title("Accuracy w.r.t. to number of time slots (l.r. 0.001)")
