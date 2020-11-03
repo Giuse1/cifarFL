@@ -74,8 +74,8 @@ def cifar_one_class_per_user(batch_size, total_num_clients, shuffle):
             ii = indexes[i:i + data_per_client]
             datasets[client] = list(itemgetter(*ii)(dc))
             client += 1
-
-    random.shuffle(datasets)
+    if shuffle:
+        random.shuffle(datasets)
     trainloader_list = []
     for d in datasets:
         trainloader_list.append(
