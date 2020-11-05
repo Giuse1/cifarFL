@@ -28,7 +28,7 @@ print(f"num_rounds: {num_rounds}")
 print(f"local_epochs: {local_epochs}")
 print(f"batch_size: {batch_size}")
 print(f"learning_rate: {learning_rate}")
-print(f"shuffle: {shuffle}")
+print(f"mode: {mode}")
 
 
 num_classes = 10
