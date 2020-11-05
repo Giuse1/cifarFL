@@ -62,7 +62,7 @@ elif mode == "hybrid_noniid":
                                                            learning_rate=learning_rate, iid=False)
 
 
-elif mode == "hybrid_iid_non_random":
+elif mode == "hybrid_noniid_non_random":
     train_loss, train_acc, val_loss, val_acc = train_model_aggregated_non_random(model_ft, criterion, num_rounds=num_rounds,
                                                            local_epochs=local_epochs, total_num_users=total_num_users,
                                                            num_users=num_users,
