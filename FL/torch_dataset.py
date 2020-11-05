@@ -18,9 +18,6 @@ def get_cifar_iid(batch_size, total_num_clients):
     testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                            download=True, transform=transform)
 
-    classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-
-
     total_data = len(trainset)
     random_list = random.sample(range(total_data), total_data)
     data_per_client = int(total_data / total_num_clients)
@@ -55,7 +52,6 @@ def cifar_one_class_per_user(batch_size, total_num_clients, shuffle):
 
     total_num_clients = 500
     total_data = len(trainset)
-    random_list = random.sample(range(total_data), total_data)
     data_per_client = int(total_data / total_num_clients)
     num_classes = 10
     datasets_per_class = [[] for _ in range(num_classes)]
