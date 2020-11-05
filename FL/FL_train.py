@@ -129,7 +129,6 @@ def train_model_aggregated_non_random(global_model, criterion, num_rounds, local
                 for i in range(int(num_groups)):
                     random_list = random.sample(list(table[:, i]), users_per_group)
                     for j, idx in enumerate(random_list):
-                        idx = random_list[j + i * users_per_group]
                         local_model = LocalUpdate(dataloader=trainloader_list[idx], id=idx, criterion=criterion,
                                                   local_epochs=local_epochs, learning_rate=learning_rate)
 
