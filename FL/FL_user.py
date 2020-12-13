@@ -13,7 +13,7 @@ class User(object):
 
     def update_weights(self, model):
         model.train()
-        optimizer = torch.optim.SGD(model.parameters(), lr=self.learning_rate )
+        optimizer = torch.optim.SGD(model.parameters(), lr=self.learning_rate)
 
         for _ in range(self.local_epochs):
 

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torchvision
-from model import shufflenet, CNNMnist
+from model import CNNMnist
 from FL.FL_train import train_model_aggregated_random, train_model_aggregated_non_random, train_model
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
