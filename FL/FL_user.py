@@ -11,19 +11,9 @@ class User(object):
         self.dataloader = dataloader
         self.learning_rate = learning_rate
 
-        self.height
-        self.width
-        #self.type
-        #self.direction
-        self.target_height
-        self.target_width
-        self.surrounding_widths
-        self.surrounding_heights
-        # self.surrounding_types
-
     def update_weights(self, model):
         model.train()
-        optimizer = torch.optim.SGD(model.parameters(), lr=self.learning_rate)
+        optimizer = torch.optim.SGD(model.parameters(), lr=self.learning_rate )
 
         for _ in range(self.local_epochs):
 
