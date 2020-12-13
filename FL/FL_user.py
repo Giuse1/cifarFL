@@ -2,15 +2,7 @@ import torch
 import matplotlib.pyplot as plt
 import numpy as np
 
-
-def imshow(img, i):
-    img = img / 2 + 0.5  # unnormalize
-    npimg = img.cpu().numpy()
-    plt.imshow(np.transpose(npimg, (1, 2, 0)))
-    plt.savefig(str(i) + ".png")
-
-
-class LocalUpdate(object):
+class User(object):
     def __init__(self, dataloader, id, criterion, local_epochs, learning_rate):
         self.id = id
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -19,10 +11,19 @@ class LocalUpdate(object):
         self.dataloader = dataloader
         self.learning_rate = learning_rate
 
+        self.height
+        self.width
+        #self.type
+        #self.direction
+        self.target_height
+        self.target_width
+        self.surrounding_widths
+        self.surrounding_heights
+        # self.surrounding_types
+
     def update_weights(self, model):
         model.train()
-        optimizer = torch.optim.SGD(model.parameters(), lr=self.learning_rate, momentum=0.9)
-        classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+        optimizer = torch.optim.SGD(model.parameters(), lr=self.learning_rate)
 
         for _ in range(self.local_epochs):
 
@@ -30,10 +31,6 @@ class LocalUpdate(object):
             local_loss = 0.0
             for (i, data) in enumerate(self.dataloader):
                 images, labels = data[0].to(self.device), data[1].to(self.device)
-                # for c,img in enumerate(images):
-                #  imshow(img,c)
-                #  print(classes[labels[c]])
-                # print(ciao)
                 optimizer.zero_grad()
                 log_probs = model(images.double())
                 loss = self.criterion(log_probs, labels)

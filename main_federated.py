@@ -1,6 +1,3 @@
-from __future__ import print_function
-from __future__ import division
-
 import torch
 import torch.nn as nn
 import torchvision
@@ -18,20 +15,17 @@ users_per_group = 10
 total_num_users = 500
 batch_size = 16
 learning_rate = 0.001
-mode = "standard_iid"
+mode = "hybrid_noniid"
 
 
 print(f"NUM_USERS: {num_users}")
-print(f"users_per_group: {users_per_group}")
-print(f"total_num_users: {total_num_users}")
+# print(f"users_per_group: {users_per_group}")
 print(f"num_rounds: {num_rounds}")
 print(f"local_epochs: {local_epochs}")
 print(f"batch_size: {batch_size}")
 print(f"learning_rate: {learning_rate}")
 print(f"mode: {mode}")
 
-
-num_classes = 10
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 model_ft = CNNMnist(3,10)

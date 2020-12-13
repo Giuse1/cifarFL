@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import torch
-import random
 
 # dict = torch.load("../cifar.pth", map_location=torch.device('cpu'))
 # n = 0
@@ -56,60 +54,60 @@ def read_file(path):
 
     return train_loss, train_acc, val_loss, val_acc
 
-# _, _, _, val_acc0 = read_file("results/standard_nonIID_lr0,001.txt")
+_, _, _, val_acc0 = read_file("results/standard_nonIID_lr0,001_5le.txt")
 # _, _, _, val_acc4 = read_file("results/standard_nonIID_lr0,001_50u.txt")
 # _, _, _, val_acc5 = read_file("results/standard_nonIID_lr0,001_20u.txt")
 # _, _, _, val_acc6 = read_file("results/standard_nonIID_lr0,001_10u.txt")
 # _, _, _, val_acc1 = read_file("results/hybrid_nonIID_group2_le0,001.txt")
-_, _, _, val_acc2 = read_file("results/hybrid_nonIID_group5_lr0,001.txt")
-_, _, _, val_acc3 = read_file("results/hybrid_nonIID_group10_lr0,001.txt")
-_, _, _, val_acc7 = read_file("results/hybrid_nonIID_group10_lr0,001_complementary.txt")
-_, _, _, val_acc8 = read_file("results/hybrid_nonIID_group5_lr0,001_complementary.txt")
-_, _, _, val_acc9 = read_file("results/hybrid_nonIID_group20_lr0,001.txt")
-_, _, _, val_acc10 = read_file("results/hybrid_nonIID_group20_lr0,001_complementary.txt")
+# _, _, _, val_acc2 = read_file("results/hybrid_nonIID_group5_lr0,001.txt")
+_, _, _, val_acc3 = read_file("results/hybrid_nonIID_group10_lr0,001_5le.txt")
+_, _, _, val_acc7 = read_file("results/hybrid_nonIID_group10_lr0,001_complementary_5le.txt")
+# _, _, _, val_acc8 = read_file("results/hybrid_nonIID_group5_lr0,001_complementary.txt")
+# _, _, _, val_acc9 = read_file("results/hybrid_nonIID_group20_lr0,001.txt")
+# _, _, _, val_acc10 = read_file("results/hybrid_nonIID_group20_lr0,001_complementary.txt")
 
 
 plt.figure()
-# plt.plot(val_acc0, label='SFL - 1 local epoch, 100 users')
+plt.plot(val_acc0, label='SFL - 1 local epoch, 100 users')
 # plt.plot(val_acc4, label='SFL - 1 local epoch, 50 users')
 # plt.plot(val_acc5, label='SFL - 1 local epoch, 20 users')
 # plt.plot(val_acc6, label='SFL - 1 local epoch, 10 users')
 # plt.plot(val_acc1, "tab:olive", label='HFL - 1 local epoch, 100 users in groups of 2')
-plt.plot(val_acc2, "tab:olive", label='HFL - 1 local epoch, 100 users in groups of 5')
+# plt.plot(val_acc2, "tab:olive", label='HFL - 1 local epoch, 100 users in groups of 5')
 plt.plot(val_acc3, "tab:orange",label='HFL - 1 local epoch, 100 users in groups of 10')
-plt.plot(val_acc9, "tab:cyan", label='HFL - 1 local epoch, 100 users in groups of 20')
-plt.plot(val_acc8, "tab:green",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
+# plt.plot(val_acc9, "tab:cyan", label='HFL - 1 local epoch, 100 users in groups of 20')
+# plt.plot(val_acc8, "tab:green",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
 plt.plot(val_acc7, "tab:red",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
-plt.plot(val_acc10, "tab:blue",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
+# plt.plot(val_acc10, "tab:blue",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
 
 
 plt.legend()
 plt.grid()
-plt.xticks(range(0, 151, 10))
-plt.xlim(0,151)
+plt.xticks(range(0, 51, 10))
+plt.xlim(0,51)
 
 plt.yticks(np.arange(0, 0.9, 0.1))
 plt.xlabel("Number of rounds")
 plt.ylabel("Accuracy")
-plt.title("Accuracy w.r.t. to number of rounds (l.r. 0.001)")
+plt.title("Accuracy w.r.t. to number of rounds (l.r. 0.001, 5 local epochs)")
 # plt.savefig("non iid comparison wrt number of rounds lr 0,001")
 plt.show()
 
 
 plt.figure()
-# plt.plot(np.arange(200,200*151,200),val_acc0, label='SFL - 1 local epoch, 100 users')
+plt.plot(np.arange(200,200*51,200),val_acc0, label='SFL - 1 local epoch, 100 users')
 # plt.plot(np.arange(100,100*301,100),val_acc4, label='SFL - 1 local epoch, 50 users')
 # plt.plot(np.arange(40,40*751,40),val_acc5, label='SFL - 1 local epoch, 20 users')
 # plt.plot(np.arange(20,20*1501,20)[:len(val_acc6)],val_acc6, label='SFL - 1 local epoch, 10 users')
 
-# plt.plot(np.arange(150,150*151,150), val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
-plt.plot(np.arange(120,120*151,120), val_acc2,"tab:olive", label='HFL - 1 local epoch, 100 users in groups of 5')
-plt.plot(np.arange(110,110*151,110), val_acc3, "tab:orange",label='HFL - 1 local epoch, 100 users in groups of 10')
-plt.plot(np.arange(105,105*151,105), val_acc9, "tab:cyan",label='HFL - 1 local epoch, 100 users in groups of 20')
+# plt.plot(np.arange(150,150*51,150), val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
+# plt.plot(np.arange(120,120*51,120), val_acc2,"tab:olive", label='HFL - 1 local epoch, 100 users in groups of 5')
+plt.plot(np.arange(110,110*51,110), val_acc3, "tab:orange",label='HFL - 1 local epoch, 100 users in groups of 10')
+# plt.plot(np.arange(105,105*51,105), val_acc9, "tab:cyan",label='HFL - 1 local epoch, 100 users in groups of 20')
 
-plt.plot(np.arange(120,120*151,120), val_acc8, "tab:green",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
-plt.plot(np.arange(110,110*151,110), val_acc7, "tab:red", label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
-plt.plot(np.arange(105,105*151,105), val_acc10,"tab:blue", label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
+# plt.plot(np.arange(120,120*51,120), val_acc8, "tab:green",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
+plt.plot(np.arange(110,110*51,110), val_acc7, "tab:red", label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
+# plt.plot(np.arange(105,105*51,105), val_acc10,"tab:blue", label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
 
 plt.legend()
 plt.grid()
@@ -118,34 +116,34 @@ plt.grid()
 plt.yticks(np.arange(0, 0.9, 0.1))
 plt.xlabel("Number of transmissions")
 plt.ylabel("Accuracy")
-plt.title("Accuracy w.r.t. to number of transmissions (l.r. 0.001)")
+plt.title("Accuracy w.r.t. to number of transmissions (l.r. 0.001, 5 local epochs)")
 # plt.savefig("non iid comparison wrt number of rounds lr 0,001")
 plt.show()
 
 
 plt.figure()
-# plt.plot(val_acc0, label='SFL - 1 local epoch, 100 users')
+plt.plot(val_acc0, label='SFL - 1 local epoch, 100 users')
 # plt.plot(val_acc4, label='SFL - 1 local epoch, 50 users')
 # plt.plot(val_acc5, label='SFL - 1 local epoch, 20 users')
 # plt.plot(val_acc6, label='SFL - 1 local epoch, 10 users')
 
-# plt.plot(np.arange(0,150*2,2), val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
-plt.plot(np.arange(0,150*5,5), val_acc2,"tab:olive", label='HFL - 1 local epoch, 100 users in groups of 5')
-plt.plot(np.arange(0,150*10,10), val_acc3, "tab:orange",label='HFL - 1 local epoch, 100 users in groups of 10')
-plt.plot(np.arange(0,150*20,20), val_acc9, "tab:cyan", label='HFL - 1 local epoch, 100 users in groups of 20')
+# plt.plot(np.arange(0,50*2,2), val_acc1, label='HFL - 1 local epoch, 100 users in groups of 2')
+# plt.plot(np.arange(0,50*5,5), val_acc2,"tab:olive", label='HFL - 1 local epoch, 100 users in groups of 5')
+plt.plot(np.arange(0,50*10,10), val_acc3, "tab:orange",label='HFL - 1 local epoch, 100 users in groups of 10')
+# plt.plot(np.arange(0,50*20,20), val_acc9, "tab:cyan", label='HFL - 1 local epoch, 100 users in groups of 20')
 
-plt.plot(np.arange(0,150*5,5), val_acc8, "tab:green", label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
-plt.plot(np.arange(0,150*10,10), val_acc7, "tab:red",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
-plt.plot(np.arange(0,150*20,20), val_acc10, "tab:blue",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
+# plt.plot(np.arange(0,50*5,5), val_acc8, "tab:green", label='HFL - 1 local epoch, 100 users in non-randomly created groups of 5')
+plt.plot(np.arange(0,50*10,10), val_acc7, "tab:red",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 10')
+# plt.plot(np.arange(0,150*20,20), val_acc10, "tab:blue",label='HFL - 1 local epoch, 100 users in non-randomly created groups of 20')
 
 
 plt.legend()
 plt.grid()
 #plt.xticks(range(0, 101, 5))
-plt.xlim(0,800)
+plt.xlim(0,500)
 plt.yticks(np.arange(0, 0.9, 0.1))
 plt.xlabel("Number of time slots")
 plt.ylabel("Accuracy")
-plt.title("Accuracy w.r.t. to number of time slots (l.r. 0.001)")
+plt.title("Accuracy w.r.t. to number of time slots (l.r. 0.001, 5 local epochs)")
 # plt.savefig("non iid comparison wrt number of rounds lr 0,001")
 plt.show()
