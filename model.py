@@ -32,10 +32,9 @@ class CNNMnist(nn.Module):
         self.fc2 = nn.Linear(50, num_classes)
 
     def forward(self, x):
-
         x = F.relu(F.max_pool2d(self.conv1(x), 2))
         x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
-        x = x.view(-1, x.shape[1]*x.shape[2]*x.shape[3])
+        x = x.view(-1, x.shape[1] * x.shape[2] * x.shape[3])
         x = F.relu(self.fc1(x))
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
@@ -52,14 +51,21 @@ class cifar(nn.Module):
         self.fc2 = nn.Linear(64, num_classes)
 
     def forward(self, x):
+        x = self.conv1(x)
+        # print(x.shape)
 
-        x = F.relu(F.max_pool2d(self.conv1(x), 2))
-        x = F.relu(F.max_pool2d(self.conv2(x), 2))
-        x = F.relu(F.max_pool2d(self.conv3(x), 2))
-
-        x = x.view(-1, x.shape[1]*x.shape[2]*x.shape[3])
+        x = F.relu(F.max_pool2d(x, 2))
+        # print(x.shape)
+        x = self.conv2(x)
+        # print(x.shape)
+        x = F.relu(F.max_pool2d(x, 2))
+        # print(x.shape)
+        x = self.conv3(x)
+        # print(x.shape)
+        x = x.view(-1, x.shape[1] * x.shape[2] * x.shape[3])
+        # print(x.shape)
         x = F.relu(self.fc1(x))
-        x = F.dropout(x, training=self.training)
+        # print(x.shape)
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
 
