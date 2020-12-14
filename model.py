@@ -44,7 +44,7 @@ class CNNMnist(nn.Module):
 
 class cifar(nn.Module):
     def __init__(self, num_channels, num_classes):
-        super(CNNMnist, self).__init__()
+        super(cifar, self).__init__()
         self.conv1 = nn.Conv2d(num_channels, 32, kernel_size=3)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3)
         self.conv3 = nn.Conv2d(64, 64, kernel_size=3)
