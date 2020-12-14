@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torchvision
-from model import CNNMnist
+from model import CNNMnist, cifar
 from FL.FL_train import train_model_aggregated_random, train_model_aggregated_non_random, train_model
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
@@ -28,7 +28,7 @@ print(f"mode: {mode}")
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-model_ft = CNNMnist(3,10)
+model_ft = cifar(3,10)
 model_ft = model_ft.to(device)
 
 criterion = nn.CrossEntropyLoss()
