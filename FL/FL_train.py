@@ -89,7 +89,7 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
                             model_tmp = copy.deepcopy(global_model)
                             model_tmp.load_state_dict(w)
                             w, local_loss, local_correct, local_total = local_model.update_weights(
-                                model=model_tmp.double())
+                                model=model_tmp.double(), epoch=round)
                             samples_per_client[i] += local_total
 
                     local_weights.append(copy.deepcopy(w))
