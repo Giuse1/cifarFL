@@ -19,7 +19,7 @@ mode = "hybrid_noniid"
 
 
 print(f"NUM_USERS: {num_users}")
-# print(f"users_per_group: {users_per_group}")
+print(f"users_per_group: {users_per_group}")
 print(f"num_rounds: {num_rounds}")
 print(f"local_epochs: {local_epochs}")
 print(f"batch_size: {batch_size}")

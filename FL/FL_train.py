@@ -83,14 +83,21 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
 
                         if j == 0:
                             w, local_loss, local_correct, local_total = local_model.update_weights(
-                                model=copy.deepcopy(global_model).double(), epoch=round)
+                                model=copy.deepcopy(global_model).double(), epoch=round*users_per_group+j)
                             samples_per_client.append(local_total)
+                            print(round)
+                            print(j)
+                            print(round * users_per_group + j)
+
                         else:
                             model_tmp = copy.deepcopy(global_model)
                             model_tmp.load_state_dict(w)
                             w, local_loss, local_correct, local_total = local_model.update_weights(
-                                model=model_tmp.double(), epoch=round)
+                                model=model_tmp.double(), epoch=round*users_per_group+j)
                             samples_per_client[i] += local_total
+                            print(round)
+                            print(j)
+                            print(round * users_per_group + j)
 
                     local_weights.append(copy.deepcopy(w))
 
@@ -142,6 +149,10 @@ def train_model_aggregated_non_random(global_model, criterion, num_rounds, local
                 #     # print(random_list)
 
                 # print(table)
+
+                for i in range(num_classes):
+                    table[i, :] = np.array(random.sample(range(i * 50, (i + 1) * 50), num_groups))
+
                 for i in range(int(num_groups)):
                     random_list = random.sample(list(table[:, i]), users_per_group)
                     for j, idx in enumerate(random_list):
