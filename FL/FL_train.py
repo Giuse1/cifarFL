@@ -85,9 +85,9 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
                             w, local_loss, local_correct, local_total = local_model.update_weights(
                                 model=copy.deepcopy(global_model).double(), epoch=round*users_per_group+j)
                             samples_per_client.append(local_total)
-                            print(round)
-                            print(j)
-                            print(round * users_per_group + j)
+                            # print(round)
+                            # print(j)
+                            # print(round * users_per_group + j)
 
                         else:
                             model_tmp = copy.deepcopy(global_model)
@@ -95,9 +95,9 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
                             w, local_loss, local_correct, local_total = local_model.update_weights(
                                 model=model_tmp.double(), epoch=round*users_per_group+j)
                             samples_per_client[i] += local_total
-                            print(round)
-                            print(j)
-                            print(round * users_per_group + j)
+                            # print(round)
+                            # print(j)
+                            # print(round * users_per_group + j)
 
                     local_weights.append(copy.deepcopy(w))
 
