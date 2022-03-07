@@ -16,8 +16,8 @@ local_epochs = 1
 #num_users = 100
 #users_per_group = 10
 #total_num_users = 500
-batch_size = 16
-learning_rate = 0.001
+batch_size = 64 # 16
+learning_rate = 0.001*5
 mode = "hybrid_noniid_non_random"
 
 
