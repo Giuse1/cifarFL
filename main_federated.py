@@ -7,15 +7,18 @@ print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
 torch.manual_seed(1)
 
+total_num_users = 100
+num_users = 50
+users_per_group = 10 #5
 
 num_rounds = 150
 local_epochs = 1
-num_users = 100
-users_per_group = 10
-total_num_users = 500
+#num_users = 100
+#users_per_group = 10
+#total_num_users = 500
 batch_size = 16
 learning_rate = 0.001
-mode = "hybrid_noniid"
+mode = "hybrid_noniid_non_random"
 
 
 print(f"NUM_USERS: {num_users}")
