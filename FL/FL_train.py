@@ -81,9 +81,11 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
                         local_model = User(dataloader=trainloader_list[idx], id=idx, criterion=criterion,
                                            local_epochs=local_epochs, learning_rate=learning_rate)
 
+                        # epoch_decay = j+round*users_per_group
+                        epoch_decay = round
                         if j == 0:
                             w, local_loss, local_correct, local_total = local_model.update_weights(
-                                model=copy.deepcopy(global_model).double(), epoch=round*users_per_group+j)
+                                model=copy.deepcopy(global_model).double(), epoch=epoch_decay)
                             samples_per_client.append(local_total)
                             # print(round)
                             # print(j)
@@ -93,7 +95,7 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
                             model_tmp = copy.deepcopy(global_model)
                             model_tmp.load_state_dict(w)
                             w, local_loss, local_correct, local_total = local_model.update_weights(
-                                model=model_tmp.double(), epoch=round*users_per_group+j)
+                                model=model_tmp.double(), epoch=epoch_decay)
                             samples_per_client[i] += local_total
                             # print(round)
                             # print(j)
@@ -159,7 +161,8 @@ def train_model_aggregated_non_random(global_model, criterion, num_rounds, local
                         local_model = User(dataloader=trainloader_list[idx], id=idx, criterion=criterion,
                                            local_epochs=local_epochs, learning_rate=learning_rate)
 
-                        epoch_decay = j+round*users_per_group
+                        #epoch_decay = j+round*users_per_group
+                        epoch_decay=round
                         if j == 0:
                             w, local_loss, local_correct, local_total = local_model.update_weights(
                                 model=copy.deepcopy(global_model).double(),epoch=epoch_decay)
