@@ -3,17 +3,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class User(object):
-    def __init__(self, dataloader, id, criterion, local_epochs, learning_rate):
+    def __init__(self, dataloader, id, criterion, local_epochs, learning_rate, decay):
         self.id = id
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.criterion = criterion
         self.local_epochs = local_epochs
         self.dataloader = dataloader
         self.learning_rate = learning_rate
+        self.decay = decay
 
-    def update_weights(self, model, epoch):
+    def update_weights(self, model, epoch, decay):
         model.train()
-        lr = self.learning_rate * 0.99**epoch
+        lr = self.learning_rate * self.decay**epoch
         optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
         for _ in range(self.local_epochs):

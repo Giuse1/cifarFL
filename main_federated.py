@@ -11,16 +11,19 @@ total_num_users = 100
 num_users = 50
 users_per_group = 10 #5
 
-num_rounds = 150
+num_rounds = 1000
 local_epochs = 1
 #num_users = 100
 #users_per_group = 10
 #total_num_users = 500
 batch_size = 64 # 16
 learning_rate = 0.001*5
+decay = 0.999
+decay_type="each_client" # "each_round"
+
 mode = "hybrid_noniid_non_random"
 
-
+print(f"total_num_users: {total_num_users}")
 print(f"NUM_USERS: {num_users}")
 print(f"users_per_group: {users_per_group}")
 print(f"num_rounds: {num_rounds}")
@@ -38,25 +41,25 @@ criterion = nn.CrossEntropyLoss()
 
 if mode == "standard_iid":
     train_loss, train_acc, val_loss, val_acc = train_model(model_ft, criterion, num_rounds=num_rounds, local_epochs=local_epochs, total_num_users=total_num_users, num_users=num_users,
-                                                       batch_size=batch_size, learning_rate=learning_rate, iid=True)
+                                                       batch_size=batch_size, learning_rate=learning_rate, decay=decay,iid=True)
 elif mode == "standard_noniid":
     train_loss, train_acc, val_loss, val_acc = train_model(model_ft, criterion, num_rounds=num_rounds,
                                                            local_epochs=local_epochs, total_num_users=total_num_users,
                                                            num_users=num_users,
                                                            batch_size=batch_size,
-                                                           learning_rate=learning_rate, iid=False)
+                                                           learning_rate=learning_rate, decay=decay, iid=False)
 elif mode == "hybrid_iid":
     train_loss, train_acc, val_loss, val_acc = train_model_aggregated_random(model_ft, criterion, num_rounds=num_rounds,
                                                            local_epochs=local_epochs, total_num_users=total_num_users,
                                                            num_users=num_users,
                                                            users_per_group=users_per_group, batch_size=batch_size,
-                                                           learning_rate=learning_rate, iid=True)
+                                                           learning_rate=learning_rate, decay=decay,decay_type=decay_type, iid=True)
 elif mode == "hybrid_noniid":
     train_loss, train_acc, val_loss, val_acc = train_model_aggregated_random(model_ft, criterion, num_rounds=num_rounds,
                                                            local_epochs=local_epochs, total_num_users=total_num_users,
                                                            num_users=num_users,
                                                            users_per_group=users_per_group, batch_size=batch_size,
-                                                           learning_rate=learning_rate, iid=False)
+                                                           learning_rate=learning_rate, decay=decay, decay_type=decay_type, iid=False)
 
 
 elif mode == "hybrid_noniid_non_random":
@@ -64,7 +67,7 @@ elif mode == "hybrid_noniid_non_random":
                                                            local_epochs=local_epochs, total_num_users=total_num_users,
                                                            num_users=num_users,
                                                            users_per_group=users_per_group, batch_size=batch_size,
-                                                           learning_rate=learning_rate)
+                                                           learning_rate=learning_rate, decay=decay, decay_type=decay_type)
 
 
 

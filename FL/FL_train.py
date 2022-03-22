@@ -9,7 +9,7 @@ random.seed(0)
 
 
 def train_model(global_model, criterion, num_rounds, local_epochs, total_num_users, num_users, batch_size,
-                learning_rate, iid):
+                learning_rate, decay, iid):
     train_loss, train_acc = [], []
     val_loss, val_acc = [], []
 
@@ -32,7 +32,7 @@ def train_model(global_model, criterion, num_rounds, local_epochs, total_num_use
 
                 for idx in random_list:
                     local_model = User(dataloader=trainloader_list[idx], id=idx, criterion=criterion,
-                                       local_epochs=local_epochs, learning_rate=learning_rate)
+                                       local_epochs=local_epochs, learning_rate=learning_rate, decay=decay)
                     w, local_loss, local_correct, local_total = local_model.update_weights(
                         model=copy.deepcopy(global_model).double(), epoch=round)
                     local_weights.append(copy.deepcopy(w))
@@ -54,7 +54,7 @@ def train_model(global_model, criterion, num_rounds, local_epochs, total_num_use
 
 def train_model_aggregated_random(global_model, criterion, num_rounds, local_epochs, total_num_users, num_users,
                                   users_per_group, batch_size,
-                                  learning_rate, iid):
+                                  learning_rate, decay, decay_type,iid):
     train_loss, train_acc = [], []
     val_loss, val_acc = [], []
     if iid:
@@ -79,17 +79,18 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
                     for j in range(users_per_group):
                         idx = random_list[j + i * users_per_group]
                         local_model = User(dataloader=trainloader_list[idx], id=idx, criterion=criterion,
-                                           local_epochs=local_epochs, learning_rate=learning_rate)
+                                           local_epochs=local_epochs, learning_rate=learning_rate, decay=decay)
 
-                        # epoch_decay = j+round*users_per_group
-                        epoch_decay = round
+                        if decay_type == "each_client":
+                            epoch_decay = j + round * users_per_group
+                        elif decay_type == "each_round":
+                            epoch_decay = round
+                        else:
+                            raise Exception("Decay type wrong")
                         if j == 0:
                             w, local_loss, local_correct, local_total = local_model.update_weights(
                                 model=copy.deepcopy(global_model).double(), epoch=epoch_decay)
                             samples_per_client.append(local_total)
-                            # print(round)
-                            # print(j)
-                            # print(round * users_per_group + j)
 
                         else:
                             model_tmp = copy.deepcopy(global_model)
@@ -97,9 +98,6 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
                             w, local_loss, local_correct, local_total = local_model.update_weights(
                                 model=model_tmp.double(), epoch=epoch_decay)
                             samples_per_client[i] += local_total
-                            # print(round)
-                            # print(j)
-                            # print(round * users_per_group + j)
 
                     local_weights.append(copy.deepcopy(w))
 
@@ -119,7 +117,7 @@ def train_model_aggregated_random(global_model, criterion, num_rounds, local_epo
 
 def train_model_aggregated_non_random(global_model, criterion, num_rounds, local_epochs, total_num_users, num_users,
                                       users_per_group, batch_size,
-                                      learning_rate):
+                                      learning_rate, decay, decay_type):
     train_loss, train_acc = [], []
     val_loss, val_acc = [], []
 
@@ -159,10 +157,15 @@ def train_model_aggregated_non_random(global_model, criterion, num_rounds, local
                     random_list = random.sample(list(table[:, i]), users_per_group)
                     for j, idx in enumerate(random_list):
                         local_model = User(dataloader=trainloader_list[idx], id=idx, criterion=criterion,
-                                           local_epochs=local_epochs, learning_rate=learning_rate)
+                                        local_epochs=local_epochs, learning_rate=learning_rate, decay=decay)
 
-                        #epoch_decay = j+round*users_per_group
-                        epoch_decay=round
+                        if decay_type=="each_client":
+                            epoch_decay = j+round*users_per_group
+                        elif decay_type=="each_round":
+                            epoch_decay=round
+                        else:
+                            raise Exception("Decay type wrong")
+
                         if j == 0:
                             w, local_loss, local_correct, local_total = local_model.update_weights(
                                 model=copy.deepcopy(global_model).double(),epoch=epoch_decay)
