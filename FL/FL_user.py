@@ -12,7 +12,7 @@ class User(object):
         self.learning_rate = learning_rate
         self.decay = decay
 
-    def update_weights(self, model, epoch, decay):
+    def update_weights(self, model, epoch):
         model.train()
         lr = self.learning_rate * self.decay**epoch
         optimizer = torch.optim.SGD(model.parameters(), lr=lr)
