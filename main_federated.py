@@ -30,6 +30,8 @@ print(f"num_rounds: {num_rounds}")
 print(f"local_epochs: {local_epochs}")
 print(f"batch_size: {batch_size}")
 print(f"learning_rate: {learning_rate}")
+print(f"decay: {decay}")
+print(f"decay_type: {decay_type}")
 print(f"mode: {mode}")
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
